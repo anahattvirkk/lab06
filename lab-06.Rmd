@@ -1,11 +1,17 @@
 ---
 title: "Lab 06 - Ugly charts and Simpson's paradox"
-author: "Insert your name here"
-date: "Insert date here"
+author: "Anahatt Virk"
+date: "07/04/2025"
 output: github_document
 ---
 
 ### Load packages and data
+```{r info}
+library(usethis)
+use_git_config(
+  user.name = "Anahatt Virk",
+  user.email = "virka22@wfu.edu")
+```
 
 ```{r load-packages, message = FALSE}
 library(tidyverse) 

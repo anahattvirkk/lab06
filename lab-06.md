@@ -1,13 +1,21 @@
-Lab 06 - Sad plots
+Lab 06 - Ugly charts and Simpson’s paradox
 ================
-Insert your name here
-Insert date here
+Anahatt Virk
+07/04/2025
 
 ### Load packages and data
 
 ``` r
+library(usethis)
+use_git_config(
+  user.name = "Anahatt Virk",
+  user.email = "virka22@wfu.edu")
+```
+
+``` r
 library(tidyverse) 
-library(dsbox) 
+library(dsbox)
+library(mosaicData) 
 ```
 
 ### Exercise 1
