@@ -43,10 +43,22 @@ staff_long %>%
 
 ### Exercise 2
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+To show that the proportion of part-time faculty have gone up over time, I would change the previous plot in order to show the proportions within each year, instead of the raw counts. The y-axis label would have to be updated to reflect proportions instaed of number of staff. The updated graph has been included below. 
+
+```{r proportions}
+staff_prop <- staff_long %>%
+  group_by(year) %>%
+  mutate(proportion = value / sum(value)) %>%
+   ungroup()
+```
+
+```{r proportion-plot}
+staff_prop %>%
+  ggplot(aes(x = year, y = proportion, group = faculty_type, color = faculty_type)) +
+  geom_line() +
+  labs(title = "Proportion of Instructional Staff by Faculty Type Over Time", x = "Year", y = "Proportion of Staff", color = "Faculty Type") +
+   theme_minimal()
+```
 
 ### Exercise 3
 
