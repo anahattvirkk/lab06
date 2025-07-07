@@ -93,6 +93,51 @@ staff_prop %>%
 
 ### Exercise 3
 
-…
+To improve the original plot, I believe that a cleaner and more
+interpretable format should be used such as a bar graph. Additionally,
+while the original includes 17 countries in the visualization, it would
+be best to limit them to the top 10 fish producing countries, and group
+the rest together as “other.” Capture and aquaculture production could
+also be depicted on the same graph through the use of stacking.
+
+``` r
+fisheries <- read_csv("data/fisheries.csv")
+```
+
+    ## Rows: 216 Columns: 4
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (1): country
+    ## dbl (3): capture, aquaculture, total
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+fish_long <- fisheries %>%
+    slice_max(total, n = 10) %>%
+
+  pivot_longer(cols = c(capture, aquaculture),
+             names_to = "production_type",
+             values_to = "tons")
+```
+
+``` r
+ggplot(fish_long, aes(x = tons, y = country, fill = production_type)) +
+  geom_col(position = "stack") +
+  scale_fill_manual(values = c("capture" = "blue", "aquaculture" = "green"), labels = c("Capture", "Aquaculture")) +
+  labs(title = "Top 10 Fishery-Producing Countries in 2016", x = "Production (Tons)", y = "Country", fill = "Production Type") +
+  theme_minimal()
+```
+
+![](lab-06_files/figure-gfm/fisheries-plot-1.png)<!-- -->
+
+### Exercise 3
+
+### Exercise 3
+
+### Exercise 3
+
+### Exercise 3
 
 Add exercise headings as needed.
