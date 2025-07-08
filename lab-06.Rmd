@@ -1,5 +1,5 @@
 ---
-title: "Lab 06 - Ugly charts and Simpson's paradox"
+title: "Lab 06 - Ugly Charts and Simpson's Paradox"
 author: "Anahatt Virk"
 date: "07/04/2025"
 output: github_document
@@ -134,7 +134,7 @@ Whickham %>%
   labs(title="Outcomes by Smoking Status", x = "Smoking Status", y ="Count", fill = "Health Outcome")
 ```
 
-```{r probabilities}
+```{r contigencies}
 Whickham %>%
   count(smoker, outcome) %>%
   group_by(smoker) %>%
@@ -146,9 +146,24 @@ The data does not support my expectations. From the graph we can see that there 
 ### Smokers - Exercise 6
 
 ```{r age-cat}
-Whickham_agecat <- Whickham %>%
+Whickham <- Whickham %>%
   mutate(age_cat = case_when(age <= 44 ~ "18-44", age > 44 & age <= 64 ~ "45-64", age > 64 ~ "65+"))
 ```
 
 ### Smokers - Exercise 7
 
+```{r agecat-visual}
+Whickham %>%
+  count(smoker, age_cat, outcome) %>%
+  ggplot(aes(x = smoker, y = n, fill = outcome)) + 
+  geom_col() + 
+  facet_wrap(~ age_cat) +
+  labs(title="Outcomes by Smoking Status", x = "Smoking Status", y ="Count", fill = "Health Outcome")
+```
+
+```{r contingencies-agecat}
+Whickham %>%
+  count(smoker, age_cat, outcome)
+```
+
+After faceting by age category, it can be seen that the relationship between smoking status and outcome varies across different age groups. For adults 18-44 we see that death count is low for both smokers and non-smokers, but it is slightly higher for smokers. For adults 45-64, 80 smokers versus 53 non-smokers died. Here it can be seen that smoking is positively correlated with adverse outcomes in middle-aged participants. However, for the 65+ category more non-smokers than smokers are dead, likely reflecting the health risks that come with getting older. This suggests that age may influence the observed outcomes in the 65+ group. Faceting by age category proves to be extremely helpful in this case, as it allows us to see patterns that we would not have otherwise been able to pick up on. 

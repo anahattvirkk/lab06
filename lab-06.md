@@ -1,4 +1,4 @@
-Lab 06 - Ugly charts and Simpson’s paradox
+Lab 06 - Ugly Charts and Simpson’s Paradox
 ================
 Anahatt Virk
 07/04/2025
@@ -227,8 +227,51 @@ my previous statement. The probability for a non-smoker to be dead is
 ### Smokers - Exercise 6
 
 ``` r
-Whickham_agecat <- Whickham %>%
+Whickham <- Whickham %>%
   mutate(age_cat = case_when(age <= 44 ~ "18-44", age > 44 & age <= 64 ~ "45-64", age > 64 ~ "65+"))
 ```
 
 ### Smokers - Exercise 7
+
+``` r
+Whickham %>%
+  count(smoker, age_cat, outcome) %>%
+  ggplot(aes(x = smoker, y = n, fill = outcome)) + 
+  geom_col() + 
+  facet_wrap(~ age_cat) +
+  labs(title="Outcomes by Smoking Status", x = "Smoking Status", y ="Count", fill = "Health Outcome")
+```
+
+![](lab-06_files/figure-gfm/agecat-visual-1.png)<!-- -->
+
+``` r
+Whickham %>%
+  count(smoker, age_cat, outcome)
+```
+
+    ##    smoker age_cat outcome   n
+    ## 1      No   18-44   Alive 327
+    ## 2      No   18-44    Dead  12
+    ## 3      No   45-64   Alive 147
+    ## 4      No   45-64    Dead  53
+    ## 5      No     65+   Alive  28
+    ## 6      No     65+    Dead 165
+    ## 7     Yes   18-44   Alive 270
+    ## 8     Yes   18-44    Dead  15
+    ## 9     Yes   45-64   Alive 167
+    ## 10    Yes   45-64    Dead  80
+    ## 11    Yes     65+   Alive   6
+    ## 12    Yes     65+    Dead  44
+
+After faceting by age category, it can be seen that the relationship
+between smoking status and outcome varies across different age groups.
+For adults 18-44 we see that death count is low for both smokers and
+non-smokers, but it is slightly higher for smokers. For adults 45-64, 80
+smokers versus 53 non-smokers died. Here it can be seen that smoking is
+positively correlated with adverse outcomes in middle-aged participants.
+However, for the 65+ category more non-smokers than smokers are dead,
+likely reflecting the health risks that come with getting older. This
+suggests that age may influence the observed outcomes in the 65+ group.
+Faceting by age category proves to be extremely helpful in this case, as
+it allows us to see patterns that we would not have otherwise been able
+to pick up on.
