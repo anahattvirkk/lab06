@@ -132,12 +132,98 @@ ggplot(fish_long, aes(x = tons, y = country, fill = production_type)) +
 
 ![](lab-06_files/figure-gfm/fisheries-plot-1.png)<!-- -->
 
-### Exercise 3
+### MosaicData
 
-### Exercise 3
+``` r
+library(mosaicData)
+data(Whickham)
+```
 
-### Exercise 3
+### Smokers - Exercise 1
 
-### Exercise 3
+I believe that these data came from an observational study, as they
+follow smoking behavior and outcomes in women without any intervention
+from the researchers. It would be unethical to randomly assign
+individuals to smoke or not for the purpose of a study, further
+supporting my claim that this was observational and not experimental.
 
-Add exercise headings as needed.
+### Smokers - Exercise 2
+
+The data frame includes 1314 observations, each representing one
+participant.
+
+### Smokers - Exercise 3
+
+There are 3 variables in the dataset: outcome, smoking status, and age.
+Outcome and smoking status are categorical variables, while age is a
+numeric variable.
+
+``` r
+ggplot(Whickham, aes(x=outcome)) +
+  geom_bar(fill="blue") + 
+  labs(title = "Survival Outcome", x= "Outcome", y = "Count" )
+```
+
+![](lab-06_files/figure-gfm/outcome-visual-1.png)<!-- -->
+
+``` r
+ggplot(Whickham, aes(x=smoker)) +
+  geom_bar(fill="pink") + 
+  labs(title = "Smoking Status", x= "Smoker?", y = "Count")
+```
+
+![](lab-06_files/figure-gfm/smoker-visual-1.png)<!-- -->
+
+``` r
+ggplot(Whickham, aes(x=age)) +
+  geom_histogram(fill="green") +
+  labs(title = "Age Distribution", x ="Age", y ="Count") 
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](lab-06_files/figure-gfm/age-visual-1.png)<!-- -->
+
+### Smokers - Exercise 4
+
+I would expect smokers to have worse health outcomes than non-smokers
+would. In the case of this dataset, I predict that smokers are more
+likely to be dead after 20 years in comparison to non-smokers.
+
+### Smokers - Exercise 5
+
+``` r
+Whickham %>%
+  count(smoker, outcome) %>%
+  ggplot(aes(x = smoker, y = n, fill = outcome)) + 
+  geom_col() + 
+  labs(title="Outcomes by Smoking Status", x = "Smoking Status", y ="Count", fill = "Health Outcome")
+```
+
+![](lab-06_files/figure-gfm/smoking-outcome-visual-1.png)<!-- -->
+
+``` r
+Whickham %>%
+  count(smoker, outcome) %>%
+  group_by(smoker) %>%
+  mutate(probability = n / sum(n))
+```
+
+    ## # A tibble: 4 × 4
+    ## # Groups:   smoker [2]
+    ##   smoker outcome     n probability
+    ##   <fct>  <fct>   <int>       <dbl>
+    ## 1 No     Alive     502       0.686
+    ## 2 No     Dead      230       0.314
+    ## 3 Yes    Alive     443       0.761
+    ## 4 Yes    Dead      139       0.239
+
+The data does not support my expectations. From the graph we can see
+that there are more non-smokers dead after 20 years than smokers.
+Additionally, looking at the conditional probabilities also contradicts
+my previous statement. The probability for a non-smoker to be dead is
+0.314, while it is 0.239 for smokers.
+
+### Smokers - Exercise 6
+
+### Smokers - Exercise 7
