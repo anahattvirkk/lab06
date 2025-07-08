@@ -144,5 +144,11 @@ Whickham %>%
 The data does not support my expectations. From the graph we can see that there are more non-smokers dead after 20 years than smokers. Additionally, looking at the conditional probabilities also contradicts my previous statement. The probability for a non-smoker to be dead is 0.314, while it is 0.239 for smokers. 
 
 ### Smokers - Exercise 6
+
+```{r age-cat}
+Whickham_agecat <- Whickham %>%
+  mutate(age_cat = case_when(age <= 44 ~ "18-44", age > 44 & age <= 64 ~ "45-64", age > 64 ~ "65+"))
+```
+
 ### Smokers - Exercise 7
 

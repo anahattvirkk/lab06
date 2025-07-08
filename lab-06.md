@@ -226,4 +226,9 @@ my previous statement. The probability for a non-smoker to be dead is
 
 ### Smokers - Exercise 6
 
+``` r
+Whickham_agecat <- Whickham %>%
+  mutate(age_cat = case_when(age <= 44 ~ "18-44", age > 44 & age <= 64 ~ "45-64", age > 64 ~ "65+"))
+```
+
 ### Smokers - Exercise 7
